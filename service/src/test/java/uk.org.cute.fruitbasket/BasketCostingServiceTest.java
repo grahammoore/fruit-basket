@@ -15,7 +15,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
@@ -52,16 +51,20 @@ public class BasketCostingServiceTest {
                 {
                     final Item item = Mockito.mock(Item.class);
                     when(item.getName()).thenReturn(entry.getKey());
-                    when(itemRepository.findItemByName(entry.getKey())).thenReturn(Optional.of(item));
+                    when(itemRepository.getItemByName(entry.getKey())).thenReturn(Optional.of(item));
                     when(pricingService.getUnitPrice(item)).thenReturn(Optional.of(new BigDecimal(entry.getValue())));
-                }
-        );
+                });
+
+        final Item item = Mockito.mock(Item.class);
+        when(item.getName()).thenReturn("Mango");
+        when(itemRepository.getItemByName(item.getName())).thenReturn(Optional.of(item));
+        when(pricingService.getUnitPrice(item)).thenReturn(Optional.empty());
     }
 
     @Test
     public void singleItemOneQuantityInBasket() {
         final Basket basket = basketFactory.createBasket();
-        Item item1 = itemRepository.findItemByName("Orange").get();
+        Item item1 = itemRepository.getItemByName("Orange").get();
         basket.addItemToBasket(item1, 1);
         final Integer totalCost = basketCostingService.calculateTotalCost(basket).intValue();
         assertEquals(prices.get(item1.getName()), totalCost);
@@ -70,7 +73,7 @@ public class BasketCostingServiceTest {
     @Test
     public void singleItemTwoQuantityInBasket() {
         final Basket basket = basketFactory.createBasket();
-        Item item1 = itemRepository.findItemByName("Orange").get();
+        Item item1 = itemRepository.getItemByName("Orange").get();
         basket.addItemToBasket(item1, 2);
         final Integer totalCost = basketCostingService.calculateTotalCost(basket).intValue();
         assertEquals((Integer) (prices.get(item1.getName()) * 2), totalCost);
@@ -79,7 +82,7 @@ public class BasketCostingServiceTest {
     @Test
     public void twoSameItemTwoQuantityInBasket() {
         final Basket basket = basketFactory.createBasket();
-        Item item1 = itemRepository.findItemByName("Orange").get();
+        Item item1 = itemRepository.getItemByName("Orange").get();
         basket.addItemToBasket(item1, 2);
         basket.addItemToBasket(item1, 3);
         final Integer totalCost = basketCostingService.calculateTotalCost(basket).intValue();
@@ -89,9 +92,9 @@ public class BasketCostingServiceTest {
     @Test
     public void fourItemsInBasket() {
         final Basket basket = basketFactory.createBasket();
-        Item item1 = itemRepository.findItemByName("Orange").get();
-        Item item2 = itemRepository.findItemByName("Apple").get();
-        Item item3 = itemRepository.findItemByName("Peach").get();
+        Item item1 = itemRepository.getItemByName("Orange").get();
+        Item item2 = itemRepository.getItemByName("Apple").get();
+        Item item3 = itemRepository.getItemByName("Peach").get();
         basket.addItemToBasket(item1, 2);
         basket.addItemToBasket(item2, 3);
         basket.addItemToBasket(item1, 4);
@@ -103,6 +106,14 @@ public class BasketCostingServiceTest {
         expectedTotalCost += prices.get(item3.getName()) * 5;
 
         assertEquals((Integer) expectedTotalCost, totalCost);
+    }
+
+    @Test(expected = IllegalStateException.class)
+    public void singleItemOneQuantityNoPriceInBasket() {
+        final Basket basket = basketFactory.createBasket();
+        Item item1 = itemRepository.getItemByName("Mango").get();
+        basket.addItemToBasket(item1, 1);
+        basketCostingService.calculateTotalCost(basket).intValue();
     }
 }
 

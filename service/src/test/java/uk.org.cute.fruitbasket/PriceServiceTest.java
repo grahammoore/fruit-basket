@@ -5,20 +5,16 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import uk.org.cute.fruitbasket.simple.DefaultItem;
 
 import javax.annotation.Resource;
-import javax.swing.text.html.Option;
 import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.intThat;
 import static org.mockito.Mockito.when;
 
 @JUnitTest
@@ -41,7 +37,7 @@ public class PriceServiceTest {
 
     @Test
     public void testGetPriceByItemKnown() {
-        final Item item = itemRepository.findItemByName("Orange").get();
+        final Item item = itemRepository.getItemByName("Orange").get();
 
         final Optional<BigDecimal> price = pricingService.getUnitPrice(item);
         assertTrue(price.isPresent());

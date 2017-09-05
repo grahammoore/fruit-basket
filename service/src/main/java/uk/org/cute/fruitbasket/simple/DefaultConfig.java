@@ -6,6 +6,10 @@ import org.springframework.context.annotation.Configuration;
 import uk.org.cute.fruitbasket.ItemRepository;
 import uk.org.cute.fruitbasket.PricingService;
 
+/**
+ * Spring config to facilitate auto-wiring. Needed because defaultItemRepository fulfills two beans, itemRepository
+ * and pricingService.
+ */
 @Configuration
 public class DefaultConfig {
 

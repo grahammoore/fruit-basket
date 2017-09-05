@@ -15,9 +15,9 @@
     </parent>
 
 	<scm>
-		<connection>scm:hg:https://bitbucket.org/grahamm/fruit-basket</connection>
-		<developerConnection>scm:hg:https://bitbucket.org/grahamm/fruit-basket</developerConnection>
-		<url>scm:hg:https://bitbucket.org/grahamm/fruit-basket</url>
+		<connection>sscm:git:git:://bitbucket.org/grahamm/fruit-basket</connection>
+		<developerConnection>scm:git:git:://bitbucket.org/grahamm/fruit-basket</developerConnection>
+		<url>scm:git:git:://bitbucket.org/grahamm/fruit-basket</url>
 		<tag>HEAD</tag>
 	</scm>
 

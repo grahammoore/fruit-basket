@@ -4,7 +4,6 @@ package uk.org.cute.fruitbasket.jbehave.tests.steps;
 import org.jbehave.core.annotations.Given;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
-import org.jbehave.core.model.ExamplesTable;
 import org.springframework.beans.factory.annotation.Autowired;
 import uk.org.cute.fruitbasket.*;
 
@@ -42,7 +41,7 @@ public class FruitBasketSteps {
     }
 
     private void addItemToBasket(final int quantity, final String itemName, final boolean validItem) {
-        final Optional<Item> item = itemRepository.findItemByName(itemName);
+        final Optional<Item> item = itemRepository.getItemByName(itemName);
 
         if (validItem) {
             assert item.isPresent() : "Item not found";

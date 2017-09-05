@@ -7,12 +7,15 @@ import uk.org.cute.fruitbasket.Item;
 import uk.org.cute.fruitbasket.PricingService;
 
 import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.CopyOnWriteArrayList;
 
+/**
+ * This implementation of Basket uses a ConcurrentLinkedQueue to store the BasketEntries. The queue is used to allow fast
+ * additions while not interfering with any other threads inspecting the entries. Consumers of getItems() are
+ * given an unmodifiable Collection so the basket state cannot change unexpectedly.
+ */
 public class DefaultBasket implements Basket {
 
     class DefaultBasketEntry implements BasketEntry{
@@ -34,9 +37,17 @@ public class DefaultBasket implements Basket {
             return quantity;
         }
     }
-    
-    private final List<BasketEntry> basketEntries = new CopyOnWriteArrayList<>();
 
+    private final Queue<BasketEntry> basketEntries = new ConcurrentLinkedQueue<>();
+
+    /**
+     * Add another Item to the Basket. Multiple additions of the same Item are not collated, the same Item will appear
+     * the number of times add was called. If a quantity is less than one an exception is thrown.
+     *
+     * @param item Item to add.
+     * @param quantity quantity to associate with that Item.
+     * @throws IllegalArgumentException thrown when the quantity is less than 1.
+     */
     @Override
     public void addItemToBasket(final Item item, final int quantity) {
         Objects.requireNonNull(item, "Item is null");
@@ -48,6 +59,11 @@ public class DefaultBasket implements Basket {
         basketEntries.add(new DefaultBasketEntry(item, quantity));
     }
 
+    /**
+     * Get a collection containing all the Baskets BasketEntries. The collection cannot be modified.
+     *
+     * @return collection of BasketEntries in the Basket.
+     */
     @Override
     public Collection<BasketEntry> getItems() {
         return Collections.unmodifiableCollection(basketEntries);
