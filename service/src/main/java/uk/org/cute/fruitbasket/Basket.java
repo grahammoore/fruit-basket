@@ -13,8 +13,6 @@ public interface Basket {
 
     void addItemToBasket(Item item, int quantity);
 
-//    BigDecimal calculateTotalCost();
-
     Collection<BasketEntry> getItems();
 
 }

@@ -2,9 +2,10 @@ package uk.org.cute.fruitbasket;
 
 
 import java.math.BigDecimal;
+import java.util.Optional;
 
 public interface PricingService {
 
-    BigDecimal getUnitPrice(Item item);
+    Optional<BigDecimal> getUnitPrice(Item item);
 
 }

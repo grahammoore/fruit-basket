@@ -3,28 +3,20 @@ package uk.org.cute.fruitbasket.simple;
 
 import uk.org.cute.fruitbasket.Item;
 
-import java.math.BigDecimal;
-
 
 public class DefaultItem implements Item {
 
-    private String name;
-    private BigDecimal pricePerUnit;
-    private int calculateHashCode;
+    private final String name;
+    private final int calculatedHashCode;
 
-    DefaultItem(String name, BigDecimal pricePerUnit) {
+    DefaultItem(final String name) {
         this.name = name.intern();
-        this.pricePerUnit = pricePerUnit;
-        calculateHashCode = name.hashCode();
+        calculatedHashCode = name.hashCode();
     }
 
     @Override
     public String getName() {
         return name;
-    }
-
-    public BigDecimal getPricePerUnit() {
-        return pricePerUnit;
     }
 
     @Override
@@ -33,18 +25,17 @@ public class DefaultItem implements Item {
     }
 
     public int hashCode() {
-        return calculateHashCode;
+        return calculatedHashCode;
     }
 
-    public boolean equals(Object object) {
+    public boolean equals(final Object object) {
         if (object == this) {
             return true;
         } else if (!(object instanceof  DefaultItem)) {
-            return  false;
+            return false;
         }
 
-        DefaultItem that = (DefaultItem) object;
-
+        final DefaultItem that = (DefaultItem) object;
         return name == that.getName(); // Only works because name is intern'd
     }
 }

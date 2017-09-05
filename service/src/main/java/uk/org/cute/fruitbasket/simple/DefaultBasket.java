@@ -16,10 +16,10 @@ import java.util.concurrent.CopyOnWriteArrayList;
 public class DefaultBasket implements Basket {
 
     class DefaultBasketEntry implements BasketEntry{
-        private Item item;
-        private int quantity;
+        private final Item item;
+        private final int quantity;
 
-        DefaultBasketEntry(Item item , int quantity) {
+        DefaultBasketEntry(final Item item , final int quantity) {
             this.item = item;
             this.quantity = quantity;
         }
@@ -34,14 +34,11 @@ public class DefaultBasket implements Basket {
             return quantity;
         }
     }
-//
-//    @Autowired
-//    PricingService pricingService;
-
-    private List<BasketEntry> basketEntries = new CopyOnWriteArrayList<>();
+    
+    private final List<BasketEntry> basketEntries = new CopyOnWriteArrayList<>();
 
     @Override
-    public void addItemToBasket(Item item, int quantity) {
+    public void addItemToBasket(final Item item, final int quantity) {
         Objects.requireNonNull(item, "Item is null");
 
         if (quantity < 1) {

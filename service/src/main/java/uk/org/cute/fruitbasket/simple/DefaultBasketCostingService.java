@@ -8,20 +8,22 @@ import uk.org.cute.fruitbasket.BasketCostingService;
 import uk.org.cute.fruitbasket.PricingService;
 
 import java.math.BigDecimal;
-import java.util.InputMismatchException;
-import java.util.function.BiFunction;
+import java.util.Objects;
 import java.util.function.Function;
 
 @Component("basketCostingService")
-public class DefaultBasketCostingService implements BasketCostingService{
+public class DefaultBasketCostingService implements BasketCostingService {
 
     @Autowired
     private PricingService pricingService;
 
     @Override
-    public BigDecimal calculateTotalCost(Basket basket) {
-        Function<Basket.BasketEntry, BigDecimal> calculateItemCost = basketEntry ->
+    public BigDecimal calculateTotalCost(final Basket basket) {
+        Objects.requireNonNull(basket, "Basket is null");
+
+        final Function<Basket.BasketEntry, BigDecimal> calculateItemCost = basketEntry ->
                 pricingService.getUnitPrice(basketEntry.getItem())
+                        .orElseThrow(() -> new IllegalStateException(String.format("No price for item [%s]", basketEntry.getItem())))
                     .multiply(new BigDecimal(basketEntry.getQuantity()));
 
         return basket.getItems().stream()

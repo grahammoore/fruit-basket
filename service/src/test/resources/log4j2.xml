@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off">
+	<appenders>
+		<Console name="Console" target="SYSTEM_OUT">
+			<PatternLayout pattern="%d{DEFAULT} [%t] %-5level %logger{1} - %msg%n" />
+		</Console>
+	</appenders>
+
+	<loggers>
+		<!--<logger name="org.springframework" level="debug" additivity="true" />-->
+		<logger name="uk.org.cute" level="debug" additivity="true" />
+		<logger name="org.springframework" level="info" additivity="true" />
+
+		<root level="info">
+			<appender-ref ref="Console" />
+		</root>
+	</loggers>
+
+
+</configuration>
