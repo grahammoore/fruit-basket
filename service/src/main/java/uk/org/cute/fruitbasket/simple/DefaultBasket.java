@@ -40,6 +40,9 @@ public class DefaultBasket implements Basket {
 
     private final Queue<BasketEntry> basketEntries = new ConcurrentLinkedQueue<>();
 
+    DefaultBasket() {
+    }
+
     /**
      * Add another Item to the Basket. Multiple additions of the same Item are not collated, the same Item will appear
      * the number of times add was called. If a quantity is less than one an exception is thrown.

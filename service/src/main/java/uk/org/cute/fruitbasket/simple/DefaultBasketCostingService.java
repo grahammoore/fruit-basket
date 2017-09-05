@@ -17,6 +17,9 @@ public class DefaultBasketCostingService implements BasketCostingService {
     @Autowired
     private PricingService pricingService;
 
+    private DefaultBasketCostingService() {
+    }
+
     /**
      * Calculate the total cost of the Basket. If no price exists an exception is thrown.
      *

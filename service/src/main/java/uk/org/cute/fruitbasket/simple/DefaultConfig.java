@@ -13,6 +13,9 @@ import uk.org.cute.fruitbasket.PricingService;
 @Configuration
 public class DefaultConfig {
 
+    DefaultConfig() {
+    }
+
     @Autowired
     private DefaultItemRepository defaultItemRepository;
 
