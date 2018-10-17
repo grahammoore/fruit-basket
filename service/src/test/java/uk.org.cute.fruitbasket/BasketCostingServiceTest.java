@@ -10,6 +10,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import uk.org.cute.fruitbasket.simple.DefaultBasketCostingService;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -30,8 +31,8 @@ public class BasketCostingServiceTest {
     private PricingService pricingService;
 
     @InjectMocks
-    @Autowired
-    private BasketCostingService basketCostingService;
+//    @Autowired
+    private DefaultBasketCostingService basketCostingService;
 
     @Autowired
     private BasketFactory basketFactory;

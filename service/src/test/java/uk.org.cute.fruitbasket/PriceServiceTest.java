@@ -9,6 +9,7 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import uk.org.cute.fruitbasket.simple.DefaultPricingService;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -22,9 +23,7 @@ import static org.mockito.Mockito.when;
 public class PriceServiceTest {
 
     @InjectMocks
-    @Autowired
-    @Resource(name = "pricingService")
-    private PricingService pricingService;
+    private DefaultPricingService pricingService;
 
     @Autowired
     @Resource(name = "itemRepository")

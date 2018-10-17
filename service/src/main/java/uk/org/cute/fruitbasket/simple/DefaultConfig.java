@@ -19,6 +19,9 @@ public class DefaultConfig {
     @Autowired
     private DefaultItemRepository defaultItemRepository;
 
+    @Autowired
+    private PricingService defaultPricingService;
+
     @Bean("itemRepository")
     public ItemRepository getItemRepository() {
         return defaultItemRepository;
@@ -26,7 +29,7 @@ public class DefaultConfig {
 
     @Bean("pricingService")
     public PricingService getPricingService() {
-        return defaultItemRepository;
+        return defaultPricingService;
     }
 
 

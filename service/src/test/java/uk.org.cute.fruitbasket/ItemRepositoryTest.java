@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import uk.org.cute.fruitbasket.simple.DefaultItemRepository;
 
 import javax.annotation.Resource;
 import java.util.Optional;
@@ -21,9 +22,9 @@ import static org.junit.Assert.assertTrue;
 public class ItemRepositoryTest {
 
     @InjectMocks
-    @Autowired
-    @Resource(name = "itemRepository")
-    private ItemRepository itemRepository;
+//    @Autowired
+//    @Resource(name = "itemRepository")
+    private DefaultItemRepository itemRepository;
 
     @Before
     public void setUp() {

@@ -18,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
  * are stored together in Maps for simplicity.
  */
 @Component("defaultItemRepository")
-public class DefaultItemRepository implements ItemRepository, PricingService {
+public class DefaultItemRepository implements ItemRepository {
 
     private final Map<String, Item> nameToItem = new ConcurrentHashMap<>();
     private final Map<Item, BigDecimal> itemToPrice = new ConcurrentHashMap<>();
@@ -42,8 +42,7 @@ public class DefaultItemRepository implements ItemRepository, PricingService {
         return Optional.ofNullable(nameToItem.get(name));
     }
 
-    @Override
-    public Optional<BigDecimal> getUnitPrice(final Item item) {
+    protected Optional<BigDecimal> getUnitPrice(final Item item) {
         Objects.requireNonNull(item, "Item is null");
         return Optional.ofNullable(itemToPrice.get(item));
     }
